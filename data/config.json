@@ -1,0 +1,12 @@
+{
+  "semesters": [
+    {
+      "name": "2023-2024学年第一学期",
+      "file": "semester-23-24-1.json"
+    },
+    {
+      "name": "2023-2024学年第二学期",
+      "file": "semester-23-24-2.json"
+    }
+  ]
+}
