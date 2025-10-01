@@ -31,10 +31,11 @@ document.addEventListener('DOMContentLoaded', () => {
     
     async function loadConfig() {
         try {
-            const response = await fetch('config.json');
+            // 【修改处 1】: 路径更新为 'data/config.json'
+            const response = await fetch('data/config.json');
             config = await response.json();
         } catch (error) {
-            console.error('无法加载配置文件 config.json:', error);
+            console.error('无法加载配置文件 data/config.json:', error);
         }
     }
 
@@ -51,12 +52,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const timetableFile = semesterSelector.value;
         if (!timetableFile) return;
         try {
-            const response = await fetch(timetableFile);
+            // 【修改处 2】: 使用模板字符串拼接新的路径
+            const response = await fetch(`data/${timetableFile}`);
             currentCourses = await response.json();
             renderGrid();
             renderCourses(getCurrentWeek());
         } catch (error) {
-            console.error(`无法加载课表文件 ${timetableFile}:`, error);
+            console.error(`无法加载课表文件 data/${timetableFile}:`, error);
         }
     }
 
