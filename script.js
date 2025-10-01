@@ -4,8 +4,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const startDatePicker = document.getElementById('start-date-picker');
     const currentWeekDisplay = document.getElementById('current-week-display');
     const timetableGrid = document.getElementById('timetable-grid');
-    const memoLeft = document.getElementById('memo-left');
-    const memoRight = document.getElementById('memo-right');
     const memoLeftPreview = document.getElementById('memo-left-preview');
     const memoRightPreview = document.getElementById('memo-right-preview');
 
@@ -15,13 +13,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- 初始化和数据加载 ---
     async function initializeApp() {
-        await loadConfig();
+        await Promise.all([
+            loadConfig(),
+            loadMemo('left.md', memoLeftPreview),
+            loadMemo('right.md', memoRightPreview)
+        ]);
+        
         setupSemesterSelector();
         loadSettings(); // 加载保存的学期和日期
         await loadTimetable();
         updateCurrentWeek();
-        setupMemo(memoLeft, memoLeftPreview, 'memoLeftContent');
-        setupMemo(memoRight, memoRightPreview, 'memoRightContent');
 
         // 添加事件监听
         semesterSelector.addEventListener('change', handleSemesterChange);
@@ -31,7 +32,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
     async function loadConfig() {
         try {
-            // 【修改处 1】: 路径更新为 'data/config.json'
             const response = await fetch('data/config.json');
             config = await response.json();
         } catch (error) {
@@ -40,6 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function setupSemesterSelector() {
+        if (!config.semesters) return;
         config.semesters.forEach(semester => {
             const option = document.createElement('option');
             option.value = semester.file;
@@ -52,7 +53,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const timetableFile = semesterSelector.value;
         if (!timetableFile) return;
         try {
-            // 【修改处 2】: 使用模板字符串拼接新的路径
             const response = await fetch(`data/${timetableFile}`);
             currentCourses = await response.json();
             renderGrid();
@@ -109,6 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function renderCourses(week) {
+        if (!currentCourses) return;
         document.querySelectorAll('.course-item').forEach(item => item.remove());
         const coursesToShow = currentCourses.filter(c => week >= c.startWeek && week <= c.endWeek);
 
@@ -129,29 +130,20 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     
-    // --- 备忘录处理 ---
-    function setupMemo(textarea, preview, storageKey) {
-        const savedContent = localStorage.getItem(storageKey);
-        if (savedContent) {
-            textarea.value = savedContent;
-            preview.innerHTML = marked.parse(savedContent);
+    // --- 【新功能】备忘录加载 ---
+    async function loadMemo(fileName, previewElement) {
+        try {
+            const response = await fetch(`data/${fileName}`);
+            if (response.ok) {
+                const markdownText = await response.text();
+                previewElement.innerHTML = marked.parse(markdownText);
+            } else {
+                previewElement.innerHTML = `<p style="color: #999;">加载 ${fileName} 失败。</p>`;
+            }
+        } catch (error) {
+            console.error(`加载 ${fileName} 失败:`, error);
+            previewElement.innerHTML = `<p style="color: #999;">加载 ${fileName} 失败。</p>`;
         }
-
-        textarea.addEventListener('input', () => {
-            const markdownText = textarea.value;
-            preview.innerHTML = marked.parse(markdownText);
-            localStorage.setItem(storageKey, markdownText);
-        });
-        
-        // 双击切换编辑和预览
-        textarea.addEventListener('dblclick', () => {
-            textarea.style.display = 'none';
-            preview.style.display = 'block';
-        });
-        preview.addEventListener('dblclick', () => {
-            preview.style.display = 'none';
-            textarea.style.display = 'block';
-        });
     }
 
     // --- 事件处理与设置保存 ---
@@ -179,7 +171,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (savedDate) {
             startDatePicker.value = savedDate;
         } else {
-            // 如果没有保存的日期，则设置为最近的一个周一
             const today = new Date();
             const dayOfWeek = today.getDay();
             const distance = (dayOfWeek === 0 ? -6 : 1) - dayOfWeek;
