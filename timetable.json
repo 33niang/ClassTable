@@ -1,0 +1,65 @@
+[
+  {
+    "courseName": "高等数学",
+    "teacher": "张老师",
+    "location": "教学楼A-101",
+    "dayOfWeek": 1,
+    "session": { "start": 1, "end": 2 },
+    "startWeek": 1,
+    "endWeek": 12
+  },
+  {
+    "courseName": "大学物理",
+    "teacher": "李老师",
+    "location": "实验楼B-203",
+    "dayOfWeek": 1,
+    "session": { "start": 3, "end": 4 },
+    "startWeek": 6,
+    "endWeek": 16
+  },
+  {
+    "courseName": "线性代数",
+    "teacher": "王老师",
+    "location": "教学楼C-305",
+    "dayOfWeek": 2,
+    "session": { "start": 5, "end": 6 },
+    "startWeek": 1,
+    "endWeek": 8
+  },
+  {
+    "courseName": "程序设计基础",
+    "teacher": "赵老师",
+    "location": "信息楼D-401",
+    "dayOfWeek": 3,
+    "session": { "start": 1, "end": 3 },
+    "startWeek": 1,
+    "endWeek": 10
+  },
+  {
+    "courseName": "大学英语",
+    "teacher": "刘老师",
+    "location": "文科楼E-202",
+    "dayOfWeek": 4,
+    "session": { "start": 7, "end": 8 },
+    "startWeek": 1,
+    "endWeek": 16
+  },
+  {
+    "courseName": "体育",
+    "teacher": "孙老师",
+    "location": "体育馆",
+    "dayOfWeek": 5,
+    "session": { "start": 9, "end": 10 },
+    "startWeek": 1,
+    "endWeek": 16
+  },
+    {
+    "courseName": "毛泽东思想概论",
+    "teacher": "钱老师",
+    "location": "社科楼F-501",
+    "dayOfWeek": 5,
+    "session": { "start": 3, "end": 5 },
+    "startWeek": 8,
+    "endWeek": 12
+  }
+]
