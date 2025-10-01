@@ -1,0 +1,20 @@
+[
+  {
+    "courseName": "高等数学",
+    "teacher": "张老师",
+    "location": "教学楼A-101",
+    "dayOfWeek": 1,
+    "session": { "start": 1, "end": 2 },
+    "startWeek": 1,
+    "endWeek": 12
+  },
+  {
+    "courseName": "线性代数",
+    "teacher": "王老师",
+    "location": "教学楼C-305",
+    "dayOfWeek": 2,
+    "session": { "start": 5, "end": 6 },
+    "startWeek": 1,
+    "endWeek": 8
+  }
+]
