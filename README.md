@@ -1,0 +1,2 @@
+# ClassTable
+一个部署在cloudflare和edgeone上的静态网站,用于显示课表
