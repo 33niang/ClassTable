@@ -29,27 +29,35 @@ body {
     color: #007bff;
 }
 
-.sidebar textarea {
-    width: 100%;
-    flex-grow: 1;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    padding: 10px;
-    font-size: 14px;
-    resize: none;
-    box-sizing: border-box;
-}
-
+/* 备忘录预览区样式 */
 .memo-preview {
-    margin-top: 15px;
-    padding: 10px;
-    border: 1px dashed #ccc;
+    border: 1px solid #eee;
     border-radius: 4px;
-    background-color: #fafafa;
+    background-color: #fdfdfd;
     flex-grow: 1;
     overflow-y: auto;
-    display: none; /* 默认隐藏 */
+    padding: 0 15px;
 }
+/* 优化markdown渲染样式 */
+.memo-preview h1, .memo-preview h2, .memo-preview h3 {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+}
+.memo-preview ul, .memo-preview ol {
+    padding-left: 20px;
+}
+.memo-preview blockquote {
+    border-left: 3px solid #ccc;
+    padding-left: 10px;
+    color: #666;
+    margin-left: 0;
+}
+.memo-preview code {
+    background-color: #f0f0f0;
+    padding: 2px 4px;
+    border-radius: 3px;
+}
+
 
 /* 主内容区样式 */
 .main-content {
