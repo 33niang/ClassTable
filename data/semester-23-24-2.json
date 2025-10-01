@@ -1,0 +1,20 @@
+[
+  {
+    "courseName": "大学物理",
+    "teacher": "李老师",
+    "location": "实验楼B-203",
+    "dayOfWeek": 1,
+    "session": { "start": 3, "end": 4 },
+    "startWeek": 1,
+    "endWeek": 10
+  },
+  {
+    "courseName": "程序设计基础",
+    "teacher": "赵老师",
+    "location": "信息楼D-401",
+    "dayOfWeek": 3,
+    "session": { "start": 1, "end": 3 },
+    "startWeek": 1,
+    "endWeek": 14
+  }
+]
